@@ -1,4 +1,8 @@
 require('dotenv').config();
+const {auth} = require('express-openid-connect');
+
+
+
 const express = require('express');
 const http = require('http');
 const morgan = require('morgan');
@@ -8,6 +12,8 @@ const appUrl = process.env.BASE_URL || `http://localhost:${process.env.PORT}`;
 const app = express();
 app.set('view engine', 'ejs');
 app.use(morgan('combined'));
+
+app.use(auth({auth0logout: true, baseURL: appUrl}));
 
 app.get('/', (req, res) => {
   res.render('home',  { user: req.openid && req.openid.user });
