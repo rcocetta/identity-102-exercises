@@ -7,11 +7,13 @@ const express = require('express');
 const http = require('http');
 const morgan = require('morgan');
 
-const appUrl = process.env.BASE_URL || `http://localhost:${process.env.PORT}`;
+const appUrl = process.env.BASE_URL || `http://localhost:${process.env.PORT}/`;
 
 const app = express();
 app.set('view engine', 'ejs');
 app.use(morgan('combined'));
+
+
 
 app.use(auth({auth0Logout: true, baseURL: appUrl}));
 
